@@ -9,4 +9,4 @@ Pod::spec.new do |s|
   s.author        = { "zyq" => "longge_li0123@163.com" }
   s.source        = { :git => 'https://github.com/LiYuLong012/Tools.git', :tag => s.version}
   s.requires_arc    = true
-  s.source_files    = 'Tools/*'
+  s.source_files    = 'Catoegory/*'
