@@ -1,0 +1,238 @@
+//
+//  UIImage+Extension.swift
+//  SwiftProject
+//
+//  Created by Duntech on 2018/10/9.
+//  Copyright © 2018年 Duntech. All rights reserved.
+//
+
+import UIKit
+
+extension UIImage {
+    
+    /// 重新绘制图片
+    ///
+    /// - Parameters:
+    ///   - size: 绘制尺寸
+    /// - Returns: 新图
+    func redrawImage(size: CGSize?, scale: CGFloat = 0) -> UIImage? {
+        
+        // 绘制区域
+        let rect = CGRect(origin: CGPoint(), size: size ?? CGSize.zero)
+        
+        // 开启图形上下文 size:绘图的尺寸 opaque:不透明 scale:屏幕分辨率系数,0会选择当前设备的屏幕分辨率系数
+        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0)
+        
+        // 绘制 在指定区域拉伸并绘制
+        draw(in: rect)
+        
+        // 从图形上下文获取图片
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // 关闭上下文
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    /// 绘制圆角图片
+    ///
+    /// - Parameters:
+    ///   - size: 绘制尺寸
+    ///   - bgColor: 裁剪区域外的背景颜色
+    ///   - cornerRadius: 圆角
+    /// - Returns: 新图
+    func redrawRoundedImage(size: CGSize?, bgColor: UIColor?, cornerRadius: CGFloat) -> UIImage? {
+        
+        // 绘制区域
+        let rect = CGRect(origin: CGPoint(), size: size ?? CGSize.zero)
+        
+        // 开启图形上下文 size:绘图的尺寸 opaque:不透明 scale:屏幕分辨率系数,0会选择当前设备的屏幕分辨率系数
+        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0)
+        
+        // 背景颜色填充
+        bgColor?.setFill()
+        UIRectFill(rect)
+        
+        // 圆角矩形路径
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
+        
+        // 进行路径裁切，后续的绘图都会出现在这个圆形路径内部
+        path.addClip()
+        
+        // 绘制图像 在指定区域拉伸并绘制
+        draw(in: rect)
+        
+        // 从图形上下文获取图片
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // 关闭上下文
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    /// 重新绘制圆形图片
+    ///
+    /// - Parameters:
+    ///   - size: 绘制尺寸
+    ///   - bgColor: 裁剪区域外的背景颜色
+    /// - Returns: 新图
+    func redrawOvalImage(size: CGSize?, bgColor: UIColor?) -> UIImage? {
+        
+        // 绘制区域
+        let rect = CGRect(origin: CGPoint(), size: size ?? CGSize.zero)
+        
+        // 开启图形上下文 size:绘图的尺寸 opaque:不透明 scale:屏幕分辨率系数,0会选择当前设备的屏幕分辨率系数
+        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0)
+        
+        // 背景颜色填充
+        bgColor?.setFill()
+        UIRectFill(rect)
+        
+        // 圆形路径
+        let path = UIBezierPath(ovalIn: rect)
+        
+        // 进行路径裁切，后续的绘图都会出现在这个圆形路径内部
+        path.addClip()
+        
+        // 绘制图像 在指定区域拉伸并绘制
+        draw(in: rect)
+        
+        // 从图形上下文获取图片
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // 关闭上下文
+        UIGraphicsEndImageContext()
+        
+        return result
+    }
+    
+    /// EZSE: Returns base64 string
+    public var base64: String {
+        
+        return (self.pngData()?.base64EncodedString())!
+    }
+    
+    /// EZSE: Returns compressed image to rate from 0 to 1
+    public func compressImage(rate: CGFloat) -> Data? {
+        
+        return self.jpegData(compressionQuality: 1)
+    }
+    
+    /// EZSE: Returns Image size in Bytes
+    public func getSizeAsBytes() -> Int {
+        
+        return self.jpegData(compressionQuality: 1)?.count ?? 0
+    }
+    
+    /// EZSE: Returns Image size in Kylobites
+    public func getSizeAsKilobytes() -> Int {
+        let sizeAsBytes = getSizeAsBytes()
+        return sizeAsBytes != 0 ? sizeAsBytes / 1024 : 0
+    }
+    
+    /// EZSE: scales image
+    public class func scaleTo(image: UIImage, w: CGFloat, h: CGFloat) -> UIImage {
+        let newSize = CGSize(width: w, height: h)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    /// EZSE Returns resized image with width. Might return low quality
+    public func resizeWithWidth(_ width: CGFloat) -> UIImage {
+        let aspectSize = CGSize (width: width, height: aspectHeightForWidth(width))
+        
+        UIGraphicsBeginImageContext(aspectSize)
+        self.draw(in: CGRect(origin: CGPoint.zero, size: aspectSize))
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return img!
+    }
+    
+    /// EZSE Returns resized image with height. Might return low quality
+    public func resizeWithHeight(_ height: CGFloat) -> UIImage {
+        let aspectSize = CGSize (width: aspectWidthForHeight(height), height: height)
+        
+        UIGraphicsBeginImageContext(aspectSize)
+        self.draw(in: CGRect(origin: CGPoint.zero, size: aspectSize))
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return img!
+    }
+    
+    /// EZSE:
+    public func aspectHeightForWidth(_ width: CGFloat) -> CGFloat {
+        return (width * self.size.height) / self.size.width
+    }
+    
+    /// EZSE:
+    public func aspectWidthForHeight(_ height: CGFloat) -> CGFloat {
+        return (height * self.size.width) / self.size.height
+    }
+    
+    /// EZSE: Returns cropped image from CGRect
+    public func croppedImage(_ bound: CGRect) -> UIImage? {
+        guard self.size.width > bound.origin.x else {
+            print("EZSE: Your cropping X coordinate is larger than the image width")
+            return nil
+        }
+        guard self.size.height > bound.origin.y else {
+            print("EZSE: Your cropping Y coordinate is larger than the image height")
+            return nil
+        }
+        let scaledBounds: CGRect = CGRect(x: bound.minX * self.scale, y: bound.minY * self.scale, width: bound.width * self.scale, height: bound.height * self.scale)
+        let imageRef = self.cgImage?.cropping(to: scaledBounds)
+        let croppedImage: UIImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: .up)
+        return croppedImage
+    }
+    
+    /// EZSE: Use current image for pattern of color
+    public func withColor(_ tintColor: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        
+        let context = UIGraphicsGetCurrentContext()
+        context?.translateBy(x: 0, y: self.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        context?.setBlendMode(CGBlendMode.normal)
+        
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height) as CGRect
+        context?.clip(to: rect, mask: self.cgImage!)
+        tintColor.setFill()
+        context?.fill(rect)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()! as UIImage
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+    
+    ///EZSE: Returns the image associated with the URL
+    public convenience init?(urlString: String) {
+        
+        guard let url = URL(string: urlString) else {
+            self.init(data: Data())
+            return
+        }
+        guard let data = try? Data(contentsOf: url) else {
+            print("EZSE: No image in URL \(urlString)")
+            self.init(data: Data())
+            return
+        }
+        self.init(data: data)
+    }
+    
+    ///EZSE: Returns an empty image //TODO: Add to readme
+    public class func blankImage() -> UIImage {
+        
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0.0)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+}
