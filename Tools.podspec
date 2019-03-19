@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  spec.description  = "Tools"
+  spec.description  = " swift Tools and Categery "
 
   spec.homepage     = "https://github.com/LiYuLong012"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
@@ -53,7 +53,7 @@ Pod::Spec.new do |spec|
 
   spec.author             = { "Jason012" => "longge_li0123@163.com" }
   # Or just: spec.author    = "Jason012"
-   spec.authors            = { "Jason012" => "longge_li0123@163.com" }
+  # spec.authors            = { "Jason012" => "longge_li0123@163.com" }
    spec.social_media_url   = "https://github.com/LiYuLong012"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -89,10 +89,10 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Catoegory", "Catoegory/**/*.{h,m}"
+  spec.source_files  = "Catoegory/*"
    # spec.exclude_files = "Classes/Exclude"
 
-   spec.public_header_files = "Catoegory/*"
+  # spec.public_header_files = "Catoegory/*"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -132,5 +132,5 @@ Pod::Spec.new do |spec|
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
-    spec.dependecy  "MBProgressHUD"
+    spec.dependency  "MBProgressHUD"
 end
