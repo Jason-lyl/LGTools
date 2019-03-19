@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
 
   spec.name         = "Tools"
   spec.version      = "0.0.1"
-  spec.summary      = "A short description of Tools."
+  spec.summary      = " swift Tools."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -55,7 +55,7 @@ Pod::Spec.new do |spec|
   spec.author             = { "Jason012" => "longge_li0123@163.com" }
   # Or just: spec.author    = "Jason012"
    spec.authors            = { "Jason012" => "longge_li0123@163.com" }
-   spec.social_media_url   = "https://twitter.com/Jason012"
+   spec.social_media_url   = "https://github.com/LiYuLong012"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -79,7 +79,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "http://EXAMPLE/Tools.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/LiYuLong012/Tools.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -90,10 +90,10 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Classes", "Classes/**/*.{h,m}"
-  spec.exclude_files = "Classes/Exclude"
+  spec.source_files  = "Catoegory", "Catoegory/**/*.{h,m}"
+   # spec.exclude_files = "Classes/Exclude"
 
-  # spec.public_header_files = "Classes/**/*.h"
+   spec.public_header_files = "Catoegory/*"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -129,7 +129,7 @@ Pod::Spec.new do |spec|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  # spec.requires_arc = true
+   spec.requires_arc = true
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
