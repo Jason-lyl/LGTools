@@ -509,7 +509,7 @@ extension UIView {
         hud.label.text = title
         hud.bezelView.backgroundColor = .black
         //        UIActivityIndicatorView.appearance(whenContainedInInstancesOf: [MBProgressHUD.self]).color = .red
-        hud.activityIndicatorColor = .white
+//        hud.activityIndicatorColor = .white
         hud.label.textColor = .white
         hud.label.numberOfLines = 0
         hud.tag = kHudLoadingTag
