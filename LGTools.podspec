@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "Tools"
+  spec.name         = "LGTools"
   spec.version      = "0.0.4"
   spec.summary      = " swift Tools."
 
@@ -38,7 +38,7 @@ Pod::Spec.new do |spec|
   #
 
   # spec.license      = "MIT (example)"
-   spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+   spec.license      = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -78,7 +78,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/LiYuLong012/Tools.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/LiYuLong012/LGTools.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -120,7 +120,7 @@ Pod::Spec.new do |spec|
 
   # spec.library   = "iconv"
   # spec.libraries = "iconv", "xml2"
-
+    spec.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }    
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
