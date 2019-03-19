@@ -138,7 +138,7 @@ extension UITextView {
                 text = String(text![..<index])
                 if errorMessage != nil {
                     
-                     KeyWindow?.showError(errorMessage!)
+                     UIApplication.shared.keyWindow?.showError(errorMessage!)
                 }
             }
         }
@@ -147,7 +147,7 @@ extension UITextView {
                 let index = text!.index(text!.startIndex, offsetBy: maxLimit)
                 text = String(text![..<index])
                 if errorMessage != nil {
-                    KeyWindow?.showError(errorMessage!)
+                    UIApplication.shared.keyWindow?.showError(errorMessage!)
                 }
             }
         }
@@ -227,7 +227,7 @@ extension HYInputProtocol {
                 let index = text!.index(text!.startIndex, offsetBy: length)
                 textField.text = String(text![..<index])
                 if error != nil {
-                    KeyWindow?.showError(error!)
+                    UIApplication.shared.keyWindow?.showError(error!)
                 }
             }
         }
@@ -236,7 +236,7 @@ extension HYInputProtocol {
                 let index = text!.index(text!.startIndex, offsetBy: length)
                 textField.text = String(text![..<index])
                 if error != nil {
-                     KeyWindow?.showError(error!)
+                 UIApplication.shared.keyWindow?.showError(error!)
                 }
             }
         }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 extension UIView{
     
@@ -512,7 +513,7 @@ extension UIView {
         hud.label.textColor = .white
         hud.label.numberOfLines = 0
         hud.tag = kHudLoadingTag
-        hud.label.font = kFitFont(14)
+        hud.label.font = UIFont.systemFont(ofSize: 14)
         hud.margin = 20
     }
     
@@ -526,7 +527,7 @@ extension UIView {
         hud.removeFromSuperViewOnHide = true
         hud.label.textColor = .white
         hud.label.numberOfLines = 0
-        hud.minSize = CGSize(width: kAdaptedWidth(100), height: kAdaptedWidth(100))
+        hud.minSize = CGSize(width: (100), height: (100))
         hud.bezelView.backgroundColor = .black
         //HUD窗口显示1秒后自动隐藏
         hud.hide(animated: true, afterDelay: 2)
@@ -552,53 +553,5 @@ extension UIView {
         
     }
     
-}
-
-//缺省页
-var kBlankViewKey = 10086
-
-extension UIView {
-    
-    var blankPageView: HYBlankPageView {
-        get {
-            if let blankView = objc_getAssociatedObject(self, &kBlankViewKey) as? HYBlankPageView {
-                return blankView
-            }
-            return HYBlankPageView(frame: .zero)
-        }
-        set {
-            objc_setAssociatedObject(self, &kBlankViewKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-    
-    func blankPageContainer() -> UIView? {
-        
-        var blankPageContainer: UIView? = self
-        for aView in self.subviews {
-            if (aView is UITableView) {
-                blankPageContainer = aView
-            }
-        }
-        return blankPageContainer
-    }
-    
-    func configBlankPage(type: BlackPageType, hasData: Bool, errorType: RequestErrorType, offset: CGFloat, reloadClosure: @escaping () -> Void) {
-        
-        if hasData {
-            self.blankPageView.isHidden = true
-            self.blankPageView.tag = kBlankViewKey
-            self.blankPageView.removeFromSuperview()
-        }
-        else{
-            if self.blankPageView.superview == nil {
-                self.blankPageView = HYBlankPageView(frame: self.bounds)
-            }
-            self.blankPageView.tag = kBlankViewKey
-            self.blankPageView.isHidden = false
-            self.blankPageContainer()?.insertSubview(self.blankPageView, at: 0)
-            self.addSubview(self.blankPageView)
-            self.blankPageView.configBlankPageView(type: type, hasData: hasData, errorType: errorType, offset: offset, reloadClosure: reloadClosure)
-        }
-    }
 }
 

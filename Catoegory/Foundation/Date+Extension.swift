@@ -159,7 +159,7 @@ extension Date {
             let timezone = TimeZone(identifier: "Asia/Shanghai")
             calendar.timeZone = timezone!
             let weekday = calendar.component(.weekday, from: self)
-            let weekdayArray = [KLocalString("sunday"),KLocalString("monday"),KLocalString("tuesday"),KLocalString("wednesday"),KLocalString("thursday"),KLocalString("friday"),KLocalString("saturday")]
+            let weekdayArray = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
             return weekdayArray[weekday - 1]
         }
     }

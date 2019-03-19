@@ -14,7 +14,6 @@ extension Dictionary {
     public var jsonString: String{
         
         if (!JSONSerialization.isValidJSONObject(self)) {
-            DLog("无法解析出JSONString")
             return ""
         }
         let data : Data = try! JSONSerialization.data(withJSONObject: self, options: [])

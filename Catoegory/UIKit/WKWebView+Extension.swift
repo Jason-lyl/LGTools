@@ -25,7 +25,7 @@ extension  WKWebView {
         config.userContentController = userContent
         
         self.init(frame: frame, configuration: config)
-        self.backgroundColor = kAppWhiteColor
+        self.backgroundColor = UIColor.white
         self.uiDelegate = superVC as? WKUIDelegate
         self.navigationDelegate = superVC as? WKNavigationDelegate
 
